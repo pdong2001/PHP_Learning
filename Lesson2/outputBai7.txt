@@ -1,0 +1,1 @@
+Ước chung lớn nhất : 3<br>Bội chung nhỏ nhất : 132

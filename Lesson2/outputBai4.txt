@@ -1,0 +1,1 @@
+Các số tự nhiên chia hết cho 3 nằm trong khoảng từ 1 đến 40 = 0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39
