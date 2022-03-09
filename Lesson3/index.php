@@ -7,6 +7,7 @@
     <title>Buổi thứ 3</title>
 </head>
 <body>
+    <a href="../index.php">Trở về</a>
     <ol>
         <li><a href="Bai2.php">Bài 2</a></li>
         <li><a href="Bai3.php">Bài 3</a></li>

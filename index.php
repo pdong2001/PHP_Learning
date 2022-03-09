@@ -10,7 +10,7 @@
 <body>
     <ol>
         <li>
-            <a href="./Bai1/index.php">Buổi 1</a>
+            <a href="./Lesson1/index.php">Buổi 1</a>
         </li>
         <li>
             <a href="./Lesson2/index.php">Buổi 2</a>

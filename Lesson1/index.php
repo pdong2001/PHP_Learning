@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a href="../index.php">Trở về</a>
     <?php
     function printTriangle($size)
     {
