@@ -11,34 +11,16 @@
 
 <body>
     <?php
-    class Product
-    {
-        public string $id = '';
-        public string $name = '';
-        public int $quantity = 1;
-        public string $imagePath = '';
-        static function parse_str(string $value): Product
-        {
-            $data = explode('#', $value);
-            $product = new Product;
-            if (isset($data)) {
-                $product->id = $data[0];
-                $product->name = $data[1];
-                $product->quantity = isset($data[2]) ? $data[2] : 0;
-                $product->imagePath = isset($data[3]) ? $data[3] : '';
-            }
-            return $product;
-        }
-        public function toTableRow(bool $addBtn = true): string
-        {
-            return "<td>{$this->id}</td><td>{$this->name}</td><td>{$this->quantity}</td><td><img width='100' height='100' src={$this->imagePath}/></td>" . '<td style="width:15rem;"><form method="post" class="d-inline-table" action=""><input type="hidden" value="' . $this->id . '" name="' . ($addBtn ? 'product_id' : 'd_product_id') . '"><button type="submit" class="btn btn-outline-primary">' . ($addBtn ? "Thêm vào giỏ hàng" : "Xóa khỏi giỏ hàng") . '</button></form></td>';
-        }
-    }
+    require('./product.class.php');
     $cart = [];
     define('CART', 'CART_DATA');
     session_start();
     if (isset($_SESSION[CART])) {
         $cart = unserialize($_SESSION[CART]);
+    }
+    if (isset($_POST['checkout']))
+    {
+        $cart = [];
     }
     if (isset($_POST['d_product_id'])) {
         foreach ($cart as $key => $value) {
@@ -61,17 +43,22 @@
                     <th scope="col">Name</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                foreach ($cart as $item) : ?>
+                $sum = 0;
+                foreach ($cart as $item) : $sum += $item->quantity * $item->price;?>
                     <tr>
                         <td><?php echo $item->id ?></td>
                         <td><?php echo $item->name ?></td>
                         <td><?php echo $item->quantity ?></td>
                         <td><img src='<?php echo $item->imagePath ?>' width="100" height="100" /></td>
+                        <td><?php echo number_format($item->price, 0, ',', '.') ?>đ</td>
+                        <td><?php echo number_format($item->quantity * $item->price, 0, ',', '.')?>đ</td>
                         <td style="width:15rem;">
                             <form method="post" class="d-inline-table" action="">
                                 <input type="hidden" value="<?php echo $item->id ?>" name="d_product_id">
@@ -81,8 +68,22 @@
                     </tr>
                 <?php endforeach; ?>
             </tbody>
+            <tfoot>
+                    <td colspan="5">Tổng</td>
+                    <td><?php
+                        echo number_format($sum, 0, ',', '.')
+                    ?>đ</td>
+                    <td>
+                        <form method="post" class="d-inline-table" action="">
+                            <button type="submit" name='checkout' class="btn btn-outline-primary">Thanh toán</button>
+                        </form>
+                    </td>
+            </tfoot>
         </table>
     </div>
+    <script defer>
+            <?php if (isset($_POST['checkout'])) echo "alert('Đã thanh toán.')"?>
+    </script>
 </body>
 
 </html>

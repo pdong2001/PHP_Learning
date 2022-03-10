@@ -85,8 +85,11 @@
                     <div class="flex-grow-1"><img class="w-100 h-100" style="object-fit: cover;" src="<?php echo $item->imagePath ?>" alt="Ảnh sản phẩm"></div>
                     <div class="my-1">
                         <strong><?php echo $item->name ?></strong>
-                        <div class="d-flex justify-content-between">
-                            <span>Mã : <?php echo $item->id ?></span>
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <span>Mã : <?php echo $item->id ?></span>
+                                <strong class="text-danger">Đơn giá : <?php echo number_format($item->price, 0, ',', '.') ?>đ</strong>
+                            </div>
                             <span>Số lượng : <?php echo $item->quantity ?></span>
                         </div>
                         <form method="post" class="d-inline-block" action="">
